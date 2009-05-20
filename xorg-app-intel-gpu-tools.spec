@@ -1,11 +1,11 @@
 Summary:	Tools for Intel DRM driver
 Name:		xorg-app-intel-gpu-tools
-Version:	1.0
+Version:	1.0.1
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.gz
-# Source0-md5:	fa363e7b4f0e6290b92a151d433238e9
+# Source0-md5:	a34fbf58b4dea15df7b4e9917ddcc716
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -42,3 +42,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_bindir}/*
+%{_mandir}/man1/*1.*
