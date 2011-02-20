@@ -5,8 +5,9 @@ Version:	1.0.2
 Release:	1
 License:	MIT
 Group:		X11/Applications
-Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.gz
-# Source0-md5:	81e4de7fc11cea3559a4bcc064f70d40
+#Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.gz
+Source0:	http://cgit.freedesktop.org/xorg/app/intel-gpu-tools/snapshot/intel-gpu-tools-41570d9bf583d35687bab88ac88620af41404836.tar.bz2
+# Source0-md5:	9dad8596ecfb9c2d39dda70963bba236
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -23,16 +24,16 @@ Ten pakiet zawiera zestaw narzędzi do rozwijania i testowania
 sterownika Intel DRM.
 
 %prep
-%setup -q -n intel-gpu-tools-%{version}
+%setup -qc
+mv intel-gpu-tools-*/* .
 
 %build
 %{__aclocal} -I m4
+%{__libtoolize}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure \
-	--disable-shave
-
+%configure
 %{__make}
 
 %install
