@@ -1,17 +1,22 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.0.2
+Version:	1.1
 Release:	1
 License:	MIT
 Group:		X11/Applications
-Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.gz
-# Source0-md5:	81e4de7fc11cea3559a4bcc064f70d40
+Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
+# Source0-md5:	af42e60d45562d09c547f61ebf60f103
 URL:		http://intellinuxgraphics.org/
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake
-BuildRequires:	libdrm-devel >= 2.4.6
+BuildRequires:	autoconf >= 2.63
+BuildRequires:	automake >= 1:1.10
+BuildRequires:	cairo-devel
+BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	libdrm-devel >= 2.4.23
+BuildRequires:	libtool >= 2:2.2
+BuildRequires:	udev-devel
 BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
+BuildRequires:	xorg-util-util-macros >= 1.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -26,12 +31,13 @@ sterownika Intel DRM.
 %setup -q -n intel-gpu-tools-%{version}
 
 %build
+%{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-shave
+	--disable-silent-rules
 
 %{__make}
 
@@ -47,5 +53,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README
+%attr(755,root,root) %{_bindir}/forcewaked
 %attr(755,root,root) %{_bindir}/intel_*
 %{_mandir}/man1/intel_*.1*
