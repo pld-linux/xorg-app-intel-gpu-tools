@@ -12,12 +12,12 @@ BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel
 BuildRequires:	glib2-devel >= 2.0
-BuildRequires:	libdrm-devel >= 2.4.31
+BuildRequires:	libdrm-devel >= 2.4.38
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	udev-devel
 BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
 BuildRequires:	xorg-util-util-macros >= 1.16
-Requires:	libdrm >= 2.4.31
+Requires:	libdrm >= 2.4.38
 Requires:	xorg-lib-libpciaccess >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
