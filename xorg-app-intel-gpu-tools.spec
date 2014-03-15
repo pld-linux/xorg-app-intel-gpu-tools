@@ -1,19 +1,24 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.5
+Version:	1.6
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	6165a9054de2609f5b1bf0ca0d913f31
+# Source0-md5:	e823be446e06d31195c66e354752fb0b
+Patch0:		intel-gpu-tools-missing.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	bison
 BuildRequires:	cairo-devel >= 1.12.0
 BuildRequires:	glib2-devel >= 2.0
-BuildRequires:	libdrm-devel >= 2.4.47
+%if %(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
+BuildRequires:	glibc-localedb-all
+%endif
+BuildRequires:	gtk-doc >= 1.14
+BuildRequires:	libdrm-devel >= 2.4.52
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
 BuildRequires:	python3-devel >= 3
@@ -25,9 +30,10 @@ BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
 BuildRequires:	xorg-lib-libXv-devel
 BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
+BuildRequires:	xorg-proto-dri2proto-devel >= 2.6
 BuildRequires:	xorg-util-util-macros >= 1.16
 Requires:	cairo >= 1.12.0
-Requires:	libdrm >= 2.4.47
+Requires:	libdrm >= 2.4.52
 Requires:	xorg-lib-libXrandr >= 1.3
 Requires:	xorg-lib-libpciaccess >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,6 +48,7 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
+%patch0 -p1
 
 %{__sed} -i -e '1s,#!/usr/bin/env python3,#!/usr/bin/python3,' tools/quick_dump/{quick_dump,reg_access}.py
 
@@ -54,6 +61,8 @@ sterownika Intel DRM.
 %configure \
 	--disable-silent-rules
 
+# python needs UTF-8 locale to read non-ascii debugger/system_routine/*.g4a files
+LC_ALL=en_US.UTF-8 \
 %{__make}
 
 %install
@@ -71,6 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_bindir}/chipset.py
+%attr(755,root,root) %{_bindir}/eudb
 %attr(755,root,root) %{_bindir}/intel-gen4asm
 %attr(755,root,root) %{_bindir}/intel-gen4disasm
 %attr(755,root,root) %{_bindir}/intel-gpu-overlay
