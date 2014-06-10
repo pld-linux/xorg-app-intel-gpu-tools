@@ -1,12 +1,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.6
+Version:	1.7
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	e823be446e06d31195c66e354752fb0b
+# Source0-md5:	680b95fd4f73f2d3b9004d2a2fb57f77
 Patch0:		intel-gpu-tools-missing.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
@@ -21,7 +21,7 @@ BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	libdrm-devel >= 2.4.52
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
-BuildRequires:	python3-devel >= 3
+BuildRequires:	python3-devel >= 3.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 2.0.0
 BuildRequires:	udev-devel
@@ -78,9 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc COPYING ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/chipset.py
 %attr(755,root,root) %{_bindir}/eudb
+%attr(755,root,root) %{_bindir}/gem_userptr_benchmark
 %attr(755,root,root) %{_bindir}/intel-gen4asm
 %attr(755,root,root) %{_bindir}/intel-gen4disasm
 %attr(755,root,root) %{_bindir}/intel-gpu-overlay
