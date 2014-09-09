@@ -1,6 +1,0 @@
---- intel-gpu-tools-1.6/lib/check-ndebug.h.orig	1970-01-01 01:00:00.000000000 +0100
-+++ intel-gpu-tools-1.6/lib/check-ndebug.h	2014-03-15 19:05:38.239557326 +0100
-@@ -0,0 +1,3 @@
-+#ifdef NDEBUG
-+#error "Testsuite needs its asserts!"
-+#endif

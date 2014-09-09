@@ -1,13 +1,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.7
+Version:	1.8
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	680b95fd4f73f2d3b9004d2a2fb57f77
-Patch0:		intel-gpu-tools-missing.patch
+# Source0-md5:	49d2c3c65204d889189c4d8c14c598b3
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
@@ -48,7 +47,6 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
-%patch0 -p1
 
 %{__sed} -i -e '1s,#!/usr/bin/env python3,#!/usr/bin/python3,' tools/quick_dump/{quick_dump,reg_access}.py
 
