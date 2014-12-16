@@ -1,15 +1,15 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.8
-Release:	2
+Version:	1.9
+Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	49d2c3c65204d889189c4d8c14c598b3
+# Source0-md5:	1e768f2b1edc8613911b1d33bb361a7f
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.10
+BuildRequires:	automake >= 1:1.12
 BuildRequires:	bison
 BuildRequires:	cairo-devel >= 1.12.0
 BuildRequires:	glib2-devel >= 2.0
@@ -57,7 +57,8 @@ sterownika Intel DRM.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-silent-rules
+	--disable-silent-rules \
+	--with-html-dir=%{_gtkdocdir}
 
 # python needs UTF-8 locale to read non-ascii debugger/system_routine/*.g4a files
 LC_ALL=en_US.UTF-8 \
@@ -88,4 +89,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/reg_access.py
 %attr(755,root,root) %{_libdir}/I915ChipsetPython.so
 %{_pkgconfigdir}/intel-gen4asm.pc
+%{_gtkdocdir}/intel-gpu-tools
 %{_mandir}/man1/intel_*.1*
