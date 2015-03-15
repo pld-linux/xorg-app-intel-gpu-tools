@@ -1,0 +1,20 @@
+--- intel-gpu-tools-1.10/lib/intel_batchbuffer.c.orig	2015-03-12 18:05:07.000000000 +0100
++++ intel-gpu-tools-1.10/lib/intel_batchbuffer.c	2015-03-15 13:45:27.311055799 +0100
+@@ -548,7 +548,7 @@
+ 	memset(obj, 0, sizeof(*obj));
+ 	obj->handle = gem_handle;
+ 	obj->relocation_count = count;
+-	obj->relocs_ptr = (uint64_t)relocs;
++	obj->relocs_ptr = (uintptr_t)relocs;
+ }
+ 
+ static void exec_blit(int fd,
+@@ -557,7 +557,7 @@
+ {
+ 	struct drm_i915_gem_execbuffer2 exec;
+ 
+-	exec.buffers_ptr = (uint64_t)objs;
++	exec.buffers_ptr = (uintptr_t)objs;
+ 	exec.buffer_count = count;
+ 	exec.batch_start_offset = 0;
+ 	exec.batch_len = batch_len * 4;
