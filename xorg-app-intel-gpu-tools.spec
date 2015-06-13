@@ -1,18 +1,20 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.10
+Version:	1.11
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	4d208c9294adcc7ea34b960e9950dd1e
-Patch0:		intel-gpu-tools-types.patch
+# Source0-md5:	836e9fd084f63da2a29fe81a47eb3db8
+Patch0:		intel-gpu-tools-missing.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
 BuildRequires:	bison
 BuildRequires:	cairo-devel >= 1.12.0
+# rst2man
+BuildRequires:	docutils
 BuildRequires:	glib2-devel >= 2.0
 %if %(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
@@ -21,7 +23,7 @@ BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	libdrm-devel >= 2.4.52
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
-BuildRequires:	python3-devel >= 3.0
+BuildRequires:	python3-devel >= 1:3.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 2.0.0
 BuildRequires:	udev-devel
@@ -73,6 +75,10 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/I*.la
+
+# tests
+%{__rm} -r $RPM_BUILD_ROOT%{_libexecdir}/intel-gpu-tools \
+	$RPM_BUILD_ROOT%{_datadir}/intel-gpu-tools
 
 %clean
 rm -rf $RPM_BUILD_ROOT
