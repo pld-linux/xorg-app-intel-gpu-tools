@@ -1,3 +1,10 @@
+#
+# Conditional build:
+%bcond_without	libunwind	# libunwind support in tests
+#
+%ifnarch %{ix86} %{x8664} arm hppa ia64 mips ppc ppc64 sh
+%undefine	with_libunwind
+%endif
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
@@ -22,6 +29,7 @@ BuildRequires:	glibc-localedb-all
 BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	libdrm-devel >= 2.4.52
 BuildRequires:	libtool >= 2:2.2
+%{?with_libunwind:BuildRequires:	libunwind-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	python3-devel >= 1:3.0
 BuildRequires:	sed >= 4.0
@@ -62,7 +70,8 @@ sterownika Intel DRM.
 %{__automake}
 %configure \
 	--disable-silent-rules \
-	--with-html-dir=%{_gtkdocdir}
+	--with-html-dir=%{_gtkdocdir} \
+	%{!?with_libunwind:--without-libunwind}
 
 # python needs UTF-8 locale to read non-ascii debugger/system_routine/*.g4a files
 LC_ALL=en_US.UTF-8 \
