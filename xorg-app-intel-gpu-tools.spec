@@ -8,13 +8,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.11
-Release:	3
+Version:	1.12
+Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
 # Source0-md5:	836e9fd084f63da2a29fe81a47eb3db8
-Patch0:		intel-gpu-tools-missing.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -58,9 +57,6 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
-%patch0 -p1
-
-%{__sed} -i -e '1s,#!/usr/bin/env python3,#!/usr/bin/python3,' tools/quick_dump/{quick_dump,reg_access}.py
 
 %build
 %{__libtoolize}
@@ -83,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/I*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 # tests
 %{__rm} -r $RPM_BUILD_ROOT%{_libexecdir}/intel-gpu-tools \
@@ -95,16 +91,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/chipset.py
 %attr(755,root,root) %{_bindir}/eudb
-%attr(755,root,root) %{_bindir}/gem_userptr_benchmark
+%attr(755,root,root) %{_bindir}/igt_stats
 %attr(755,root,root) %{_bindir}/intel-gen4asm
 %attr(755,root,root) %{_bindir}/intel-gen4disasm
 %attr(755,root,root) %{_bindir}/intel-gpu-overlay
 %attr(755,root,root) %{_bindir}/intel_*
-%attr(755,root,root) %{_bindir}/quick_dump.py
-%attr(755,root,root) %{_bindir}/reg_access.py
-%attr(755,root,root) %{_libdir}/I915ChipsetPython.so
+%attr(755,root,root) %{_libdir}/intel_aubdump.so
 %{_pkgconfigdir}/intel-gen4asm.pc
 %{_gtkdocdir}/intel-gpu-tools
 %{_mandir}/man1/intel_*.1*
