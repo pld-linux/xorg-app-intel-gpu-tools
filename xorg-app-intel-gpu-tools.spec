@@ -13,7 +13,7 @@ Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	836e9fd084f63da2a29fe81a47eb3db8
+# Source0-md5:	1223ccba665e2c94e05a7905bd6245ff
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -26,7 +26,7 @@ BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	gtk-doc >= 1.14
-BuildRequires:	libdrm-devel >= 2.4.52
+BuildRequires:	libdrm-devel >= 2.4.55
 BuildRequires:	libtool >= 2:2.2
 %{?with_libunwind:BuildRequires:	libunwind-devel}
 BuildRequires:	pkgconfig
@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/intel_aubdump.la
 
 # tests
 %{__rm} -r $RPM_BUILD_ROOT%{_libexecdir}/intel-gpu-tools \
