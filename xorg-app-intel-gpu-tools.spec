@@ -8,12 +8,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.12
+Version:	1.13
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	1223ccba665e2c94e05a7905bd6245ff
+# Source0-md5:	9ef0d6385e2665db7afa6432f1418ed3
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -26,7 +26,7 @@ BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	gtk-doc >= 1.14
-BuildRequires:	libdrm-devel >= 2.4.55
+BuildRequires:	libdrm-devel >= 2.4.64
 BuildRequires:	libtool >= 2:2.2
 %{?with_libunwind:BuildRequires:	libunwind-devel}
 BuildRequires:	pkgconfig
@@ -42,7 +42,7 @@ BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
 BuildRequires:	xorg-proto-dri2proto-devel >= 2.6
 BuildRequires:	xorg-util-util-macros >= 1.16
 Requires:	cairo >= 1.12.0
-Requires:	libdrm >= 2.4.52
+Requires:	libdrm >= 2.4.64
 Requires:	xorg-lib-libXrandr >= 1.3
 Requires:	xorg-lib-libpciaccess >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
