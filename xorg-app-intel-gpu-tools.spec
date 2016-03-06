@@ -8,12 +8,13 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.13
+Version:	1.14
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	http://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	9ef0d6385e2665db7afa6432f1418ed3
+# Source0-md5:	b09d69526c86174007bea2228e36b2f1
+Patch0:		%{name}-x86.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -57,6 +58,7 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -91,13 +93,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc COPYING ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/eudb
 %attr(755,root,root) %{_bindir}/igt_stats
+%attr(755,root,root) %{_bindir}/intel_*
+%attr(755,root,root) %{_libdir}/intel_aubdump.so
+%ifarch %{ix86} %{x8664} x32
+%attr(755,root,root) %{_bindir}/eudb
 %attr(755,root,root) %{_bindir}/intel-gen4asm
 %attr(755,root,root) %{_bindir}/intel-gen4disasm
 %attr(755,root,root) %{_bindir}/intel-gpu-overlay
-%attr(755,root,root) %{_bindir}/intel_*
-%attr(755,root,root) %{_libdir}/intel_aubdump.so
 %{_pkgconfigdir}/intel-gen4asm.pc
+%endif
 %{_gtkdocdir}/intel-gpu-tools
 %{_mandir}/man1/intel_*.1*

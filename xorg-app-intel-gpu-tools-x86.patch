@@ -1,0 +1,11 @@
+--- intel-gpu-tools-1.14/configure.ac.orig	2016-03-01 16:59:21.000000000 +0100
++++ intel-gpu-tools-1.14/configure.ac	2016-03-06 17:16:05.316428342 +0100
+@@ -90,7 +90,7 @@
+ PKG_CHECK_MODULES(PCIACCESS, [pciaccess >= 0.10])
+ 
+ case "$target_cpu" in
+-	x86*)
++	i[[3456]]86*|x86*)
+ 		build_x86="yes"
+ 		;;
+ 	*)
