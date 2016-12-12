@@ -8,13 +8,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.16
+Version:	1.17
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	95ae60c2c0e56736273edc406f8277c8
-Patch0:		%{name}-x86.patch
+# Source0-md5:	f107b8d909243769f8bb8114ccda8531
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -22,15 +21,18 @@ BuildRequires:	bison
 BuildRequires:	cairo-devel >= 1.12.0
 # rst2man
 BuildRequires:	docutils
+BuildRequires:	flex
 BuildRequires:	glib2-devel >= 2.0
 %if %(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	gtk-doc >= 1.14
+BuildRequires:	kmod-devel
 BuildRequires:	libdrm-devel >= 2.4.64
 BuildRequires:	libtool >= 2:2.2
 %{?with_libunwind:BuildRequires:	libunwind-devel}
 BuildRequires:	pkgconfig
+BuildRequires:	procps-devel >= 1:3.3
 BuildRequires:	python3-devel >= 1:3.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 2.0.0
@@ -58,7 +60,6 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}
