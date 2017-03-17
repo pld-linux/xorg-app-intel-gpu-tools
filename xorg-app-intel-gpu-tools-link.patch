@@ -1,0 +1,11 @@
+--- intel-gpu-tools-1.18/configure.ac.orig	2017-03-13 14:55:37.000000000 +0100
++++ intel-gpu-tools-1.18/configure.ac	2017-03-16 21:57:34.831632824 +0100
+@@ -176,7 +176,7 @@
+ PKG_CHECK_MODULES(GLIB, glib-2.0)
+ 
+ # for chamelium
+-PKG_CHECK_MODULES(XMLRPC, xmlrpc_client, [xmlrpc=yes], [xmlrpc=no])
++PKG_CHECK_MODULES(XMLRPC, [xmlrpc_client xmlrpc_util xmlrpc], [xmlrpc=yes], [xmlrpc=no])
+ PKG_CHECK_MODULES(PIXMAN, pixman-1, [pixman=yes], [pixman=no])
+ AM_CONDITIONAL(HAVE_CHAMELIUM, [test "x$xmlrpc$pixman" = xyesyes])
+ 

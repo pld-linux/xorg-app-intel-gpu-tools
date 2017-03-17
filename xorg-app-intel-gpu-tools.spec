@@ -8,12 +8,13 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.17
+Version:	1.18
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	f107b8d909243769f8bb8114ccda8531
+# Source0-md5:	6a746774c80d5bcfa0aa7f9c20f72190
+Patch0:		%{name}-link.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -28,15 +29,17 @@ BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	kmod-devel
-BuildRequires:	libdrm-devel >= 2.4.64
+BuildRequires:	libdrm-devel >= 2.4.75
 BuildRequires:	libtool >= 2:2.2
 %{?with_libunwind:BuildRequires:	libunwind-devel}
+BuildRequires:	pixman-devel
 BuildRequires:	pkgconfig
 BuildRequires:	procps-devel >= 1:3.3
 BuildRequires:	python3-devel >= 1:3.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 2.0.0
 BuildRequires:	udev-devel
+BuildRequires:	xmlrpc-c-client-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
@@ -45,7 +48,7 @@ BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
 BuildRequires:	xorg-proto-dri2proto-devel >= 2.6
 BuildRequires:	xorg-util-util-macros >= 1.16
 Requires:	cairo >= 1.12.0
-Requires:	libdrm >= 2.4.64
+Requires:	libdrm >= 2.4.75
 Requires:	xorg-lib-libXrandr >= 1.3
 Requires:	xorg-lib-libpciaccess >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -60,6 +63,7 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
+%patch0 -p1
 
 %build
 %{__libtoolize}
