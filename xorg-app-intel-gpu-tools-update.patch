@@ -1,0 +1,44 @@
+--- intel-gpu-tools-1.19/debugger/debug_rdata.c.orig	2016-06-15 14:29:32.000000000 +0200
++++ intel-gpu-tools-1.19/debugger/debug_rdata.c	2017-06-13 20:07:26.318127896 +0200
+@@ -30,6 +30,7 @@
+ #include <stdlib.h>
+ #include "intel_io.h"
+ #include "intel_chipset.h"
++#include "drmtest.h"
+ 
+ struct eu_rdata {
+ 	union {
+@@ -132,10 +133,12 @@
+ }
+ 
+ int main(int argc, char *argv[]) {
++	int drm_fd;
+ 	struct pci_device *pci_dev;
+ 	pci_dev = intel_get_pci_device();
+ 
+-	intel_register_access_init(pci_dev, 1);
++	drm_fd = drm_open_driver(DRIVER_INTEL);
++	intel_register_access_init(pci_dev, 1, drm_fd);
+ 	find_stuck_threads();
+ //	collect_rdata(atoi(argv[1]), atoi(argv[2]));
+ 	return 0;
+--- intel-gpu-tools-1.19/debugger/eudb.c.orig	2016-11-14 13:30:52.000000000 +0100
++++ intel-gpu-tools-1.19/debugger/eudb.c	2017-06-13 20:09:48.481459607 +0200
+@@ -540,7 +540,8 @@
+ 		abort();
+ 	}
+ 
+-	assert(intel_register_access_init(pci_dev, 1) == 0);
++	drm_fd = drm_open_driver(DRIVER_INTEL);
++	assert(intel_register_access_init(pci_dev, 1, drm_fd) == 0);
+ 
+ 	memset(bits, -1, sizeof(bits));
+ 	/*
+@@ -549,7 +550,6 @@
+ 	 */
+ 	if (!clear_waits) {
+ 		int dh_handle;
+-		drm_fd = drm_open_driver(DRIVER_INTEL);
+ 		bufmgr = drm_intel_bufmgr_gem_init(drm_fd, 4096);
+ 
+ 		setup_hw_bits();

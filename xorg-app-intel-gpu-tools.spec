@@ -2,19 +2,20 @@
 # Conditional build:
 %bcond_without	libunwind	# libunwind support in tests
 #
-%ifnarch %{ix86} %{x8664} arm hppa ia64 mips ppc ppc64 sh
+%ifnarch %{ix86} %{x8664} %{arm} hppa ia64 mips ppc ppc64 sh
 %undefine	with_libunwind
 %endif
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.18
+Version:	1.19
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	6a746774c80d5bcfa0aa7f9c20f72190
+# Source0-md5:	4fdfa56acca3b046fc61fb12686656f3
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-update.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
@@ -24,7 +25,7 @@ BuildRequires:	cairo-devel >= 1.12.0
 BuildRequires:	docutils
 BuildRequires:	flex
 BuildRequires:	glib2-devel >= 2.0
-%if %(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
+%if %(locale -a | grep -q '^C\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	gtk-doc >= 1.14
@@ -64,6 +65,7 @@ sterownika Intel DRM.
 %prep
 %setup -q -n intel-gpu-tools-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -78,7 +80,7 @@ sterownika Intel DRM.
 	%{!?with_libunwind:--without-libunwind}
 
 # python needs UTF-8 locale to read non-ascii debugger/system_routine/*.g4a files
-LC_ALL=en_US.UTF-8 \
+LC_ALL=C.UTF-8 \
 %{__make}
 
 %install
