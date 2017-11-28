@@ -8,15 +8,15 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.19
+Version:	1.20
 Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	4fdfa56acca3b046fc61fb12686656f3
-Patch0:		%{name}-link.patch
+# Source0-md5:	3b77a6a23274afe363bd5c942fe42562
 Patch1:		%{name}-update.patch
 URL:		http://intellinuxgraphics.org/
+BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.12
 BuildRequires:	bison
@@ -28,9 +28,10 @@ BuildRequires:	glib2-devel >= 2.0
 %if %(locale -a | grep -q '^C\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
+BuildRequires:	gsl-devel
 BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	kmod-devel
-BuildRequires:	libdrm-devel >= 2.4.75
+BuildRequires:	libdrm-devel >= 2.4.82
 BuildRequires:	libtool >= 2:2.2
 %{?with_libunwind:BuildRequires:	libunwind-devel}
 BuildRequires:	pixman-devel
@@ -49,7 +50,7 @@ BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
 BuildRequires:	xorg-proto-dri2proto-devel >= 2.6
 BuildRequires:	xorg-util-util-macros >= 1.16
 Requires:	cairo >= 1.12.0
-Requires:	libdrm >= 2.4.75
+Requires:	libdrm >= 2.4.82
 Requires:	xorg-lib-libXrandr >= 1.3
 Requires:	xorg-lib-libpciaccess >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -64,7 +65,6 @@ sterownika Intel DRM.
 
 %prep
 %setup -q -n intel-gpu-tools-%{version}
-%patch0 -p1
 %patch1 -p1
 
 %build
@@ -74,6 +74,8 @@ sterownika Intel DRM.
 %{__autoheader}
 %{__automake}
 %configure \
+	--enable-audio \
+	--enable-chamellium \
 	--enable-shader-debugger \
 	--disable-silent-rules \
 	--with-html-dir=%{_gtkdocdir} \
