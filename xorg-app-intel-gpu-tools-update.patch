@@ -42,14 +42,3 @@
  		bufmgr = drm_intel_bufmgr_gem_init(drm_fd, 4096);
  
  		setup_hw_bits();
---- intel-gpu-tools-1.20/lib/igt_x86.h.orig	2017-10-04 12:36:48.000000000 +0200
-+++ intel-gpu-tools-1.20/lib/igt_x86.h	2017-11-28 21:08:36.351787994 +0100
-@@ -40,7 +40,7 @@
- #define AVX	0x80
- #define AVX2	0x100
- 
--#if defined(__x86_64__)
-+#if 1
- unsigned igt_x86_features(void);
- char *igt_x86_features_to_string(unsigned features, char *line);
- #else

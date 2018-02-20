@@ -8,12 +8,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.20
+Version:	1.21
 Release:	1
 License:	MIT
 Group:		X11/Applications
-Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.bz2
-# Source0-md5:	3b77a6a23274afe363bd5c942fe42562
+Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.xz
+# Source0-md5:	94125e46d528b67b060ba98f3c2e3bee
 Patch1:		%{name}-update.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	alsa-lib-devel
@@ -34,12 +34,14 @@ BuildRequires:	kmod-devel
 BuildRequires:	libdrm-devel >= 2.4.82
 BuildRequires:	libtool >= 2:2.2
 %{?with_libunwind:BuildRequires:	libunwind-devel}
+BuildRequires:	peg
 BuildRequires:	pixman-devel
 BuildRequires:	pkgconfig
 BuildRequires:	procps-devel >= 1:3.3
 BuildRequires:	python3-devel >= 1:3.0
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 2.0.0
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-devel
 BuildRequires:	xmlrpc-c-client-devel
 BuildRequires:	xorg-lib-libX11-devel
@@ -49,6 +51,7 @@ BuildRequires:	xorg-lib-libXv-devel
 BuildRequires:	xorg-lib-libpciaccess-devel >= 0.10
 BuildRequires:	xorg-proto-dri2proto-devel >= 2.6
 BuildRequires:	xorg-util-util-macros >= 1.16
+BuildRequires:	xz
 Requires:	cairo >= 1.12.0
 Requires:	libdrm >= 2.4.82
 Requires:	xorg-lib-libXrandr >= 1.3
@@ -68,6 +71,7 @@ sterownika Intel DRM.
 %patch1 -p1
 
 %build
+%{__gtkdocize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
@@ -76,6 +80,7 @@ sterownika Intel DRM.
 %configure \
 	--enable-audio \
 	--enable-chamellium \
+	--enable-gtk-doc \
 	--enable-shader-debugger \
 	--disable-silent-rules \
 	--with-html-dir=%{_gtkdocdir} \
@@ -102,7 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING ChangeLog NEWS README
+%doc COPYING NEWS README
 %attr(755,root,root) %{_bindir}/igt_stats
 %attr(755,root,root) %{_bindir}/intel_*
 %attr(755,root,root) %{_libdir}/intel_aubdump.so
