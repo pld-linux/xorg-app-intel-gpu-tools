@@ -1,15 +1,8 @@
-#
-# Conditional build:
-%bcond_without	libunwind	# libunwind support in tests
-#
-%ifnarch %{ix86} %{x8664} %{arm} hppa ia64 mips ppc ppc64 sh
-%undefine	with_libunwind
-%endif
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
 Version:	1.21
-Release:	1
+Release:	2
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.xz
@@ -33,7 +26,7 @@ BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	kmod-devel
 BuildRequires:	libdrm-devel >= 2.4.82
 BuildRequires:	libtool >= 2:2.2
-%{?with_libunwind:BuildRequires:	libunwind-devel}
+BuildRequires:	libunwind-devel
 BuildRequires:	peg
 BuildRequires:	pixman-devel
 BuildRequires:	pkgconfig
@@ -56,6 +49,8 @@ Requires:	cairo >= 1.12.0
 Requires:	libdrm >= 2.4.82
 Requires:	xorg-lib-libXrandr >= 1.3
 Requires:	xorg-lib-libpciaccess >= 0.10
+# libunwind is required
+ExclusiveArch:	%{ix86} %{x8664} x32 %{arm} hppa ia64 mips ppc ppc64 sh
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -83,8 +78,7 @@ sterownika Intel DRM.
 	--enable-gtk-doc \
 	--enable-shader-debugger \
 	--disable-silent-rules \
-	--with-html-dir=%{_gtkdocdir} \
-	%{!?with_libunwind:--without-libunwind}
+	--with-html-dir=%{_gtkdocdir}
 
 # python needs UTF-8 locale to read non-ascii debugger/system_routine/*.g4a files
 LC_ALL=C.UTF-8 \
