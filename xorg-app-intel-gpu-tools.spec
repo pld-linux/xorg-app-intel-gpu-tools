@@ -1,12 +1,12 @@
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
-Version:	1.21
-Release:	2
+Version:	1.22
+Release:	1
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.xz
-# Source0-md5:	94125e46d528b67b060ba98f3c2e3bee
+# Source0-md5:	965c591b23a132084113c2a0604f537a
 Patch1:		%{name}-update.patch
 URL:		http://intellinuxgraphics.org/
 BuildRequires:	alsa-lib-devel
@@ -18,7 +18,7 @@ BuildRequires:	cairo-devel >= 1.12.0
 BuildRequires:	docutils
 BuildRequires:	flex
 BuildRequires:	glib2-devel >= 2.0
-%if %(locale -a | grep -q '^C\.UTF-8$'; echo $?)
+%if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	gsl-devel
