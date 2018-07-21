@@ -1,8 +1,9 @@
+# NOTE: since 1.23 this project is named igt-gpu-tools, see xorg-app-igt-gpu-tools.spec
 Summary:	Tools for Intel DRM driver
 Summary(pl.UTF-8):	Narzędzia do sterownika Intel DRM
 Name:		xorg-app-intel-gpu-tools
 Version:	1.22
-Release:	2
+Release:	2.1
 License:	MIT
 Group:		X11/Applications
 Source0:	https://xorg.freedesktop.org/archive/individual/app/intel-gpu-tools-%{version}.tar.xz
